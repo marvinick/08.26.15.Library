@@ -32,6 +32,18 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE authors SET name = '{new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM authors WHERE id = {$this->getId()};");
+            //$GLOBALS['DB']->exec("DELETE FROM authors_books WHERE author_id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_authors = $GLOBALS['DB']->query("SELECT * FROM authors;");

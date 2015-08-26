@@ -19,6 +19,7 @@
         protected function tearDown()
         {
             Author::deleteAll();
+            Book::deleteAll();
         }
 
         function testGetName()
@@ -53,13 +54,14 @@
         {
             //arrange
             $name = "Donald";
+            $id = 1;
             $test_author = new Author($name);
-            $test_author->save();
 
             //act
-            $result = Author::getAll();
+            $test_author->save();
 
             //assert
+            $result = Author::getAll();
             $this->assertEquals($test_author, $result[0]);
         }
 
@@ -67,12 +69,13 @@
         {
             //arrange
             $name = "Donald";
-            $id = null;
-            $test_author = new Author($name);
+            $id = 1;
+            $test_author = new Author($name, $id);
             $test_author->save();
 
             $name2 = "Duck";
-            $test_author2 = new Author($name2);
+            $id2 = 2;
+            $test_author2 = new Author($name2, $id2);
             $test_author2->save();
 
             //act
@@ -86,12 +89,13 @@
         {
             //arrange
             $name = "Donald";
-            $id = null;
-            $test_author = new Author($name);
+            $id = 1;
+            $test_author = new Author($name, $id);
             $test_author->save();
 
             $name2 = "Duck";
-            $test_author2 = new Author($name2);
+            $id2 = 2;
+            $test_author2 = new Author($name2, $id2);
             $test_author2->save();
 
             //act
@@ -106,12 +110,13 @@
         {
             //assert
             $name = "Donald";
-            $id = null;
-            $test_author = new Author($name);
+            $id = 1;
+            $test_author = new Author($name, $id);
             $test_author->save();
 
             $name2 = "Duck";
-            $test_author2 = new Author($name2);
+            $id2 = 2;
+            $test_author2 = new Author($name2, $id2);
             $test_author2->save();
 
             //act
@@ -122,5 +127,41 @@
             $this->assertEquals($test_author, $result);
         }
 
+        function testUpdate()
+        {
+            //arrange
+            $id = 1;
+            $name = 'Micah';
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $new_name = 'Marvin';
+
+            //act
+            $test_author->update($new_name);
+
+            //assert
+            $this->assertEquals("Marvin", $test_author->getName());
+        }
+
+        function testDeleteAuthor()
+        {
+            //arrange
+            $id = 1;
+            $name = 'Micah';
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $id2 = 2;
+            $name2 = "Duck";
+            $test_author2 = new Author($name2, $id2);
+            $test_author2->save();
+
+            //act
+            $test_author->delete();
+
+            //assert
+            $this->assertEquals([$test_author2], Author::getAll());
+        }
     }
 ?>

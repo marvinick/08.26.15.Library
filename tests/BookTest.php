@@ -99,7 +99,26 @@
             //assert
             $result = Book::getAll();
             $this->assertEquals([], $result);
+        }
 
+        function test_find()
+        {
+            //arrange
+            $title = "Dummies";
+            $id = null;
+            $test_book = new Book($title);
+            $test_book->save();
+
+            $title2 = "Smarties";
+            $test_book2 = new Book($title2);
+            $test_book2->save();
+
+            //act
+            $id = $test_book->getId();
+            $result = Book::find($id);
+
+            //assert
+            $this->assertEquals($test_book, $result);
         }
 
     }

@@ -18,6 +18,7 @@
         protected function tearDown()
         {
             Book::deleteAll();
+            Author::deleteAll();
         }
 
         function testGetTitle()
@@ -159,6 +160,52 @@
 
             //assert
             $this->assertEquals([$test_book2], Book::getAll());
+        }
+
+        function testAddAuthor()
+        {
+            //arrange
+            $title = "Lord of the Rings";
+            $id = 1;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $name = "J.R.R. Tolkein";
+            $id2 = 2;
+            $test_author = new Author($name, $id2);
+            $test_author->save();
+
+            //act
+            $test_book->addAuthor($test_author);
+
+            //assert
+            $this->assertEquals($test_book->getAuthors(), [$test_author]);
+        }
+
+        function testGetAuthors()
+        {
+            //arrange
+            $title = "Lord of the Rings";
+            $id = 1;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $name = "J.R.R. Tolkein";
+            $id2 = 2;
+            $test_author = new Author($name, $id2);
+            $test_author->save();
+
+            $name2 = "Mickey Mouse";
+            $id3 = 3;
+            $test_author2 = new Author($name2, $id3);
+            $test_author2->save();
+
+            //act
+            $test_book->addAuthor($test_author);
+            $test_book->addAuthor($test_author2);
+
+            //assert
+            $this->assertEquals($test_book->getAuthors(), [$test_author, $test_author2]);
         }
 
     }

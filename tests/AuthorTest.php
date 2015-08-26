@@ -19,7 +19,7 @@
         protected function tearDown()
         {
             Author::deleteAll();
-            //Book::deleteAll();
+            Book::deleteAll();
         }
 
         function testGetName()
@@ -162,6 +162,54 @@
 
             //assert
             $this->assertEquals([$test_author2], Author::getAll());
+        }
+
+        function testAddBook()
+        {
+            //arrange
+            $name = "Donald";
+            $id =1;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "Duck";
+            $id2 = 2;
+            $test_book = new Book($title, $id2);
+            $test_book->save();
+
+            //act
+            $test_author->addBook($test_book);
+
+            //assert
+            $this->assertEquals($test_author->getBooks(), [$test_book]);
+
+        }
+
+        function testGetBooks()
+        {
+            //arrange
+            $name = "Donald";
+            $id =1;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "Duck";
+            $id2 = 2;
+            $test_book = new Book($title, $id2);
+            $test_book->save();
+
+            $title2 = "Mickey";
+            $id3 = 3;
+            $test_book2 = new Book($title2, $id3);
+            $test_book2->save();
+
+            //act
+            $test_author->addBook($test_book);
+            $test_author->addBook($test_book2);
+
+            //assert
+            $this->assertEquals($test_author->getBooks(), [$test_book, $test_book2]);
+
         }
     }
 ?>

@@ -52,13 +52,14 @@
         {
             //arrange
             $title = "Dummies";
+            $id = 1;
             $test_book = new Book($title);
-            $test_book->save();
 
             //act
-            $result = Book::getAll();
+            $test_book->save();
 
             //asssert
+            $result = Book::getAll();
             $this->assertEquals($test_book, $result[0]);
         }
 
@@ -66,12 +67,13 @@
         {
             //arrange
             $title = "Dummies";
-            $id = null;
-            $test_book = new Book($title);
+            $id = 1;
+            $test_book = new Book($title, $id);
             $test_book->save();
 
             $title2 = "Smarties";
-            $test_book2 = new Book($title2);
+            $id2 =  2;
+            $test_book2 = new Book($title2, $id2);
             $test_book2->save();
 
             //act
@@ -85,12 +87,13 @@
         {
             //arrange
             $title = "Dummies";
-            $id = null;
-            $test_book = new Book($title);
+            $id = 1;
+            $test_book = new Book($title, $id);
             $test_book->save();
 
             $title2 = "Smarties";
-            $test_book2 = new Book($title2);
+            $id2 = 2;
+            $test_book2 = new Book($title2, $id2);
             $test_book2->save();
 
             //act
@@ -105,12 +108,13 @@
         {
             //arrange
             $title = "Dummies";
-            $id = null;
-            $test_book = new Book($title);
+            $id = 1;
+            $test_book = new Book($title, $id);
             $test_book->save();
 
             $title2 = "Smarties";
-            $test_book2 = new Book($title2);
+            $id2 = 2;
+            $test_book2 = new Book($title2, $id2);
             $test_book2->save();
 
             //act
@@ -121,4 +125,42 @@
             $this->assertEquals($test_book, $result);
         }
 
+        function testUpdate()
+        {
+            //arrange
+            $id = 1;
+            $title = "Donald";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $new_title = "Duck";
+
+            //act
+            $test_book->update($new_title);
+
+            //assert
+            $this->assertEquals("Duck", $test_book->getTitle());
+        }
+
+        function testDeleteBook()
+        {
+            $title = "Dummies";
+            $id = 1;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $title2 = "Smarties";
+            $id2 = 2;
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+
+            //act
+            $test_book->delete();
+
+            //assert
+            $this->assertEquals([$test_book2], Book::getAll());
+        }
+
     }
+
+?>

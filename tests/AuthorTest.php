@@ -19,7 +19,7 @@
         protected function tearDown()
         {
             Author::deleteAll();
-            Book::deleteAll();
+            //Book::deleteAll();
         }
 
         function testGetName()

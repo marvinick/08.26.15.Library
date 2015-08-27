@@ -4,11 +4,13 @@
     {
         private $count;
         private $id;
+        private $book_id;
 
-        function __construct($count, $id = null)
+        function __construct($count, $id = null, $book_id)
         {
             $this->count = $count;
             $this->id = $id;
+            $this->book_id = $book_id;
         }
 
         function setCount($new_count)
@@ -26,9 +28,14 @@
             return $this->id;
         }
 
+        function getBookId()
+        {
+            return $this->book_id;
+        }
+
         function save()
         {
-              $GLOBALS['DB']->exec("INSERT INTO copies (count) VALUES ('{$this->getCount()}');");
+              $GLOBALS['DB']->exec("INSERT INTO copies (count, book_id) VALUES ( {$this->getCount()}, {$this->getBookId()} );");
               $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -39,7 +46,8 @@
             foreach($returned_copies as $copy) {
                 $count = $copy['count'];
                 $id = $copy['id'];
-                $new_copy = new Copy($count, $id);
+                $book_id = $copy['book_id'];
+                $new_copy = new Copy($count, $id, $book_id);
                 array_push($copies, $new_copy);
             }
             return $copies;

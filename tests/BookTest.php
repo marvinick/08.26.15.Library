@@ -211,6 +211,14 @@
             $this->assertEquals($test_book->getAuthors(), [$test_author, $test_author2]);
         }
 
+        function testGetCopies()
+        {
+            //arrange
+            $title = "Donald";
+            $id = null;
+            $test_
+        }
+
     }
 
 ?>

@@ -5,6 +5,7 @@
     */
 
     require_once "src/Copy.php";
+    require_once "src/Book.php";
 
     $server = 'mysql:host=localhost;dbname=library_test';
     $username = 'root';
@@ -17,27 +18,60 @@
         protected function tearDown()
         {
             Copy::deleteAll();
+            Book::deleteAll();
         }
 
         function test_getId()
         {
             //arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
             $count = 1;
-            $id = 1;
-            $test_Copy = new Copy($count, $id);
+            $book_id = $test_book->getId();
+            $test_Copy = new Copy($count, $id, $book_id);
+            $test_Copy->save();
 
             //act
             $result = $test_Copy->getId();
 
             //assert
-            $this->assertEquals(1, $result);
+            $this->assertEquals(true, is_numeric($result));
+        }
+
+        function test_getBookId()
+        {
+            //arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book ($title, $id);
+            $test_book->save();
+
+            $count = 1;
+            $book_id = $test_book->getId();
+            $test_copy = new Copy($count, $id, $book_id);
+            $test_copy->save();
+
+            //act
+            $result = $test_copy->getBookId();
+
+            //assert
+            $this->assertEquals(true, is_numeric($result));
         }
 
         function test_save()
         {
             //arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book ($title, $id);
+            $test_book->save();
+
             $count = 1;
-            $test_copy = new Copy($count);
+            $book_id = $test_book->getId();
+            $test_copy = new Copy($count, $id, $book_id);
 
             //act
             $test_copy->save();
@@ -50,11 +84,18 @@
         function test_getAll()
         {
             //arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
             $count = 1;
-            $count2 = 2;
-            $test_copy = new Copy($count);
+            $book_id = $test_book->getId();
+            $test_copy = new Copy($count, $id, $book_id);
             $test_copy->save();
-            $test_copy2 = new Copy($count2);
+
+            $count2 = 2;
+            $test_copy2 = new Copy($count2, $id, $book_id);
             $test_copy2->save();
 
             //act
@@ -67,11 +108,18 @@
         function test_deleteAll()
         {
             //Arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
             $count = 1;
-            $count2 = 2;
-            $test_copy = new Copy($count);
+            $book_id = $test_book->getId();
+            $test_copy = new Copy($count, $id, $book_id);
             $test_copy->save();
-            $test_copy2 = new Copy($count2);
+
+            $count2 = 2;
+            $test_copy2 = new Copy($count2, $id, $book_id);
             $test_copy2->save();
 
             //Act
@@ -85,11 +133,18 @@
         function test_find()
         {
             //Arrange
+            $title = "Donald";
+            $id = null;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
             $count = 1;
-            $count2 = 2;
-            $test_copy = new Copy($count);
+            $book_id = $test_book->getId();
+            $test_copy = new Copy($count, $id, $book_id);
             $test_copy->save();
-            $test_copy2 = new Copy($count2);
+
+            $count2 = 2;
+            $test_copy2 = new Copy($count2, $id, $book_id);
             $test_copy2->save();
 
             //Act

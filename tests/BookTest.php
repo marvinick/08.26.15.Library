@@ -8,6 +8,7 @@
     //require_once "src/Copy.php";
     require_once "src/Book.php";
     require_once "src/Author.php";
+    require_once "src/Copy.php";
 
     $server = 'mysql:host=localhost; dbname=library_test';
     $username = 'root';
@@ -19,7 +20,7 @@
 
         protected function tearDown()
         {
-            //Copy::deleteAll();
+            Copy::deleteAll();
             Book::deleteAll();
             Author::deleteAll();
         }
@@ -216,7 +217,24 @@
             //arrange
             $title = "Donald";
             $id = null;
-            $test_
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $test_book_id = $test_book->getId();
+
+            $count = 1;
+            $test_copy = new Copy($count, $id, $test_book_id);
+            $test_copy->save();
+
+            $count2 = 2;
+            $test_copy2 = new Copy($count2, $id, $test_book_id);
+            $test_copy2->save();
+
+            //act
+            $result = $test_book->getCopies();
+
+            //assert
+            $this->assertEquals([$test_copy, $test_copy2], $result);
         }
 
     }

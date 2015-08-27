@@ -94,5 +94,21 @@
             }
             return $authors;
         }
+
+        function getCopies()
+        {
+            $copies = array();
+            $returned_copies = $GLOBALS['DB']->query("SELECT * FROM copies WHERE book_id = {$this->getId()};");
+            foreach($returned_copies as $copy) {
+                $count = $copy['count'];
+                $id = $copy['id'];
+                $book_id = $copy['book_id'];
+                $new_copy = new Copy($count, $id, $book_id);
+                array_push($copies, $new_copy);
+
+            }
+            return $copies;
+
+        }
     }
 ?>

@@ -40,34 +40,19 @@
     </div>
   </nav>
 
-  <div class="container">
-    <h1>{{ author.getName }}</h1>
 
-    {% if authors is not empty %}
-        <p>Here are the authors:</p>
+    <div class='container'>
+         <h1>Search Result</h1>
         <ul>
-            {% for author in authors %}
-                <li>{{ author.getName }}</li>
-            {% endfor %}
+            {% if matched_authors is not empty %}
+
+                {% for author in matched_authors %}
+                  <h3><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></h3>
+                {% endfor %}
+            {% else %}
+                <h4>No author match your search</h4>
+            {% endif %}
         </ul>
-    {% endif %}
-
-    <h4>Add a book to this author:</h4>
-
-    <form action='/add_book' method='post'>
-        <input id="author_id" name="author_id" type="hidden" value="{{ author.getId }}">
-        <label for="book_id">Select a book</label>
-        <select id='book_id' name='book_id' type='text'>
-          {% for book in all_books %}
-            <option value="{{ book.getId }}"> {{ book.getTitle }} </option>
-          {% endfor %}
-        </select>
-        <button type='submit'>Add Book</button>
-    </form>
-
-    <p><a href="/books/{{ author.getId }}/edit">Edit author</a></p>
-
-    <p><a href='/'>Home</a></p>
     </div>
 </body>
 </html>

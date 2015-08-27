@@ -44,19 +44,19 @@
     <h1>{{ book.getTitle }}</h1>
 
     {% if books is not empty %}
-        <p>Here are the books for this category:</p>
+        <p>Here are the authors for this book:</p>
         <ul>
-            {% for book in books %}
-                <li>{{ book.getTitle }}</li>
+            {% for author in authors %}
+                <li>{{ author.getName }}</li>
             {% endfor %}
         </ul>
     {% endif %}
 
-    <h4>Add a author to this books:</h4>
+    <h4>Add an author to this books:</h4>
 
-    <form action='/add_author' method='post'>
+    <form action='/add_authors' method='post'>
         <input id="book_id" name="book_id" type="hidden" value="{{ book.getId }}">
-        <label for="author_id">Select a author</label>
+        <label for="author_id">Select an author</label>
         <select id='author_id' name='author_id' type='text'>
           {% for author in all_authors %}
             <option value="{{ author.getId }}"> {{ author.getName }} </option>
@@ -66,8 +66,6 @@
     </form>
 
     <p><a href="/books/{{ book.getId }}/edit">Edit book</a></p>
-
-    <p><a href='/'>Home</a></p>
 </div>
 </body>
 </html>

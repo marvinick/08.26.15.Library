@@ -44,17 +44,17 @@
     <h1>{{ author.getName }}</h1>
 
     {% if authors is not empty %}
-        <p>Here are the authors:</p>
+        <p>Here are the books:</p>
         <ul>
-            {% for author in authors %}
-                <li>{{ author.getName }}</li>
+            {% for book in books %}
+                <li>{{ book.getTitle }}</li>
             {% endfor %}
         </ul>
     {% endif %}
 
     <h4>Add a book to this author:</h4>
 
-    <form action='/add_book' method='post'>
+    <form action='/add_books' method='post'>
         <input id="author_id" name="author_id" type="hidden" value="{{ author.getId }}">
         <label for="book_id">Select a book</label>
         <select id='book_id' name='book_id' type='text'>
@@ -65,9 +65,7 @@
         <button type='submit'>Add Book</button>
     </form>
 
-    <p><a href="/books/{{ author.getId }}/edit">Edit author</a></p>
-
-    <p><a href='/'>Home</a></p>
+    <p><a href="/author/{{ author.getId }}/edit">Edit author</a></p>
     </div>
 </body>
 </html>

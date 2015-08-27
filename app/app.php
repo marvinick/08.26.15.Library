@@ -62,8 +62,8 @@
     });
 
     $app->post("/add_authors", function() use ($app) {
-        $author = Author::find($_POST['author_id']);
         $book = Book::find($_POST['book_id']);
+        $author = Author::find($_POST['author_id']);
         $book->addAuthor($author);
         return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => Book::getAll(), 'authors' => $book->getAuthors(), 'all_authors' => Author::getAll()));
     });

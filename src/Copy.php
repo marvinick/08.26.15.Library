@@ -2,41 +2,28 @@
 
     class Copy
     {
-        private $amount;
-        private $id;
-        private $book_id;
+        private $count;
+        // private $id;
 
-        function __construct($amount, $id=null, $book_id)
+        function __construct($count)
         {
-            $this->amount = $amount;
-            $this->id= $id;
-            $this->book_id = $book_id;
+            $this->count = $count;
+            // $this->id = $id;
         }
 
-        function setAmount($new_amount)
+        function setCount($new_count)
         {
-            $this->amount = (string) $new_amount;
+            $this->count = (string) $new_count;
         }
 
-        function getAmount()
+        function getCount()
         {
-            return $this->amount;
-        }
-
-        function getId()
-        {
-            return $this->id;
-        }
-
-        function getBookId()
-        {
-            return $this->book_id;
+            return $this->count;
         }
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO copies (amount, book_id) VALUES ({$this->getAmount()}, {$this->getBookId()});");
-            $this->id = $GLOBALS['DB']->lastInsertId();
+              $GLOBALS['DB']->exec("INSERT INTO copies (count) VALUES ('{$this->getCount()}');");
         }
 
         static function getAll()
@@ -44,10 +31,8 @@
             $returned_copies = $GLOBALS['DB']->query("SELECT * FROM copies;");
             $copies = array();
             foreach($returned_copies as $copy) {
-                $amount = $copy['amount'];
-                $id = $copy['id'];
-                $book_id = $copy['book_id'];
-                $new_copy = new Copy($amount, $id, $book_id);
+                $count = $copy['count'];
+                $new_copy = new Copy($count);
                 array_push($copies, $new_copy);
             }
             return $copies;

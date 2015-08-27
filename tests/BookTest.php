@@ -5,7 +5,7 @@
     * @backupStaticAttributes disabled
     */
 
-    require_once "src/Copy.php";
+    //require_once "src/Copy.php";
     require_once "src/Book.php";
     require_once "src/Author.php";
 
@@ -19,7 +19,7 @@
 
         protected function tearDown()
         {
-            Copy::deleteAll();
+            //Copy::deleteAll();
             Book::deleteAll();
             Author::deleteAll();
         }

@@ -64,8 +64,25 @@
             return $found_patron;
         }
 
-        
+        function addCopy($copy)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO checkouts (patron_id, copy_id) VALUES ({$this->getId()}, {$copy->getId()});");
+        }
 
+        function getCopies()
+        {
+            $patron_id = $this->getId();
+            $returned_copies = $GLOBALS['DB']->query("SELECT copies.* FROM patrons JOIN checkouts ON (patrons.id = checkouts.patron_id) JOIN copies ON(checkouts.copy_id = copies.id) WHERE patrons.id = {$patron_id}");
 
+            $copies = array();
+            foreach($returned_copies as $copy) {
+                $count = $copy['count'];
+                $id = $copy['id'];
+                $book_id = $copy['book_id'];
+                $new_copy = new Copy($count, $id, $book_id);
+                array_push($copies, $new_copy);
+            }
+            return $copies;
+        }
     }
   ?>

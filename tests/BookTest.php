@@ -5,7 +5,9 @@
     * @backupStaticAttributes disabled
     */
 
+    require_once "src/Copy.php";
     require_once "src/Book.php";
+    require_once "src/Author.php";
 
     $server = 'mysql:host=localhost; dbname=library_test';
     $username = 'root';

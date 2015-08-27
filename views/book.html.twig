@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+    <div class="container">
+    <h1>{{ book.getTitle }}</h1>
+
+    {% if books is not empty %}
+        <p>Here are the books for this category:</p>
+        <ul>
+            {% for book in books %}
+                <li>{{ book.getTitle }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h4>Add a author to this books:</h4>
+
+    <form action='/add_author' method='post'>
+        <input id="book_id" name="book_id" type="hidden" value="{{ book.getId }}">
+        <label for="author_id">Select a author</label>
+        <select id='author_id' name='author_id' type='text'>
+          {% for author in all_authors %}
+            <option value="{{ author.getId }}"> {{ author.getName }} </option>
+          {% endfor %}
+        </select>
+        <button type='submit'>Add Author</button>
+    </form>
+
+    <p><a href="/books/{{ book.getId }}/edit">Edit book</a></p>
+
+    <p><a href='/'>Home</a></p>
+</div>
+</body>
+</html>

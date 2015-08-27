@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+    <div class="container">
+    <h1>Books</h1>
+
+    {% if books is not empty %}
+        <p>Here are all your book:</p>
+        <ul>
+            {% for book in books %}
+                <li><a href="/books/{{ book.getId }}">{{ book.getTitle }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/authors' method='post'>
+        <label for='title'>Title</label>
+        <input id='title' name='title' type='text'>
+
+        <button type='submit'>Add Book</button>
+    </form>
+    <form action='/delete_books' method='post'>
+        <button type='submit'>Clear Books</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</div>
+</body>
+</html>

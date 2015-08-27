@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>Author</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+</head>
+<body>
+    <div class="container">
+    <h1>Authors</h1>
+
+    {% if authors is not empty %}
+        <p>Here are all your authors:</p>
+        <ul>
+            {% for author in authors %}
+                <li><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/authors' method='post'>
+        <label for='name'>Author name</label>
+        <input id='name' name='name' type='text'>
+
+        <button type='submit'>Add Author</button>
+    </form>
+    <form action='/delete_authors' method='post'>
+        <button type='submit'>Clear Authors</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</div>
+</body>
+</html>

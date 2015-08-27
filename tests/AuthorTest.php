@@ -18,8 +18,9 @@
 
         protected function tearDown()
         {
-            Author::deleteAll();
+            Copy::deleteAll();
             Book::deleteAll();
+            Author::deleteAll();
         }
 
         function testGetName()

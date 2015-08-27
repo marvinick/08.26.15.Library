@@ -35,7 +35,7 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO copies (amount, book_id) VALUES ('{$this->getAmount()}', {$this->getBookId()})");
+            $GLOBALS['DB']->exec("INSERT INTO copies (amount, book_id) VALUES ({$this->getAmount()}, {$this->getBookId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 

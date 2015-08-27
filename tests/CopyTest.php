@@ -1,5 +1,8 @@
-<?php
+Tests for Book and Author all pass but if
+you uncomment Copy tests errors will occur in all test classes
 
+<?php
+    //
     // /**
     // * @backupGlobals disabled
     // * @backupStaticAttributes disabled
@@ -7,6 +10,7 @@
     //
     // require_once "src/Copy.php";
     // require_once "src/Book.php";
+    // require_once "src/Author.php";
     //
     // $server = 'mysql:host=localhost;dbname=;library_test';
     // $username = 'root';
@@ -19,6 +23,7 @@
     //     {
     //         Copy::deleteAll();
     //         Book::deleteAll();
+    //         Author::deleteAll();
     //     }
     //
     //     function test_getId()

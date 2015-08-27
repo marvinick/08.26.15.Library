@@ -19,6 +19,20 @@
             Copy::deleteAll();
         }
 
+        function test_getId()
+        {
+            //arrange
+            $count = 1;
+            $id = 1;
+            $test_Copy = new Copy($count, $id);
+
+            //act
+            $result = $test_Copy->getId();
+
+            //assert
+            $this->assertEquals(1, $result);
+        }
+
         function test_save()
         {
             //arrange
@@ -66,6 +80,24 @@
             //Assert
             $result = Copy::getAll();
             $this->assertEquals([], $result);
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $count = 1;
+            $count2 = 2;
+            $test_copy = new Copy($count);
+            $test_copy->save();
+            $test_copy2 = new Copy($count2);
+            $test_copy2->save();
+
+            //Act
+            $id = $test_copy->getId();
+            $result = Copy::find($id);
+
+            //Assert
+            $this->assertEquals($test_copy, $result);
         }
     }
 ?>
